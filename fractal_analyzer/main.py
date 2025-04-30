@@ -19,7 +19,7 @@ class FractalAnalyzer:
         """
         self.base = FractalBase(fractal_type)
         self.box_counter = BoxCounter(self.base)
-        self.visualizer = FractalVisualizer(fractal_type)
+        self.visualizer = FractalVisualizer(fractal_type, self.base)  # Pass base reference
         self.fractal_type = fractal_type
     
     def generate_fractal(self, type_: str, level: int) -> Tuple[List, List]:
