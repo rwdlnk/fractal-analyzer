@@ -7,9 +7,9 @@ from typing import Tuple, List, Dict, Optional
 class FractalAnalysisTools:
     """Advanced analysis tools for fractal dimensions."""
     
-    def __init__(self, analyzer):
+    def __init__(self, fractal_analyzer):
         """Initialize with reference to the main analyzer."""
-        self.analyzer = analyzer
+        self.fractal_analyzer = fractal_analyzer
     
     def trim_boundary_box_counts(self, box_sizes, box_counts, trim_count):
         """Trim specified number of box counts from each end of the data."""
@@ -27,10 +27,10 @@ class FractalAnalysisTools:
         print("\n==== ANALYZING LINEAR REGION SELECTION ====\n")
         
         # Use provided type or instance type
-        type_used = fractal_type or self.analyzer.fractal_type
+        type_used = fractal_type or self.fractal_analyzer.fractal_type
         
-        if type_used in self.analyzer.base.THEORETICAL_DIMENSIONS:
-            theoretical_dimension = self.analyzer.base.THEORETICAL_DIMENSIONS[type_used]
+        if type_used in self.fractal_analyzer.base.THEORETICAL_DIMENSIONS:
+            theoretical_dimension = self.fractal_analyzer.base.THEORETICAL_DIMENSIONS[type_used]
             print(f"Theoretical {type_used} dimension: {theoretical_dimension:.6f}")
         else:
             theoretical_dimension = None
@@ -52,7 +52,7 @@ class FractalAnalysisTools:
         print(f"Box size reduction factor: {box_size_factor}")
         
         # Calculate fractal dimension with many data points
-        box_sizes, box_counts, bounding_box = self.analyzer.box_counter.box_counting_optimized(
+        box_sizes, box_counts, bounding_box = self.fractal_analyzer.box_counter.box_counting_optimized(
             segments, min_box_size, max_box_size, box_size_factor=box_size_factor)
         
         # Trim boundary box counts if requested
@@ -147,12 +147,12 @@ class FractalAnalysisTools:
         print("\n==== ANALYZING DIMENSION VS ITERATION LEVEL ====\n")
             
         # Use provided type or instance type
-        type_used = fractal_type or self.analyzer.fractal_type
+        type_used = fractal_type or self.fractal_analyzer.fractal_type
         
         if type_used is None:
             raise ValueError("Fractal type must be specified either in constructor or as argument")
         
-        theoretical_dimension = self.analyzer.base.THEORETICAL_DIMENSIONS.get(type_used)
+        theoretical_dimension = self.fractal_analyzer.base.THEORETICAL_DIMENSIONS.get(type_used)
         if theoretical_dimension:
             print(f"Theoretical {type_used} dimension: {theoretical_dimension:.6f}")
         
@@ -167,7 +167,7 @@ class FractalAnalysisTools:
             print(f"\n--- Processing {type_used} curve at level {level} ---")
             
             # Generate the curve
-            _, segments = self.analyzer.generate_fractal(type_used, level)
+            _, segments = self.fractal_analyzer.generate_fractal(type_used, level)
             
             # Calculate extent to determine box sizes
             min_x = min(min(s[0][0], s[1][0]) for s in segments)
@@ -182,11 +182,11 @@ class FractalAnalysisTools:
             box_size_factor = 1.5
             
             # Perform box counting
-            box_sizes, box_counts, bounding_box = self.analyzer.box_counter.box_counting_optimized(
+            box_sizes, box_counts, bounding_box = self.fractal_analyzer.box_counter.box_counting_optimized(
                 segments, min_box_size, max_box_size, box_size_factor=box_size_factor)
             
             # Calculate dimension
-            fractal_dimension, error, intercept = self.analyzer.box_counter.calculate_fractal_dimension(
+            fractal_dimension, error, intercept = self.fractal_analyzer.box_counter.calculate_fractal_dimension(
                 box_sizes, box_counts)
             
             # Calculate R-squared value
@@ -217,20 +217,20 @@ class FractalAnalysisTools:
                 plot_boxes = (level <= 6) and not no_box_plot
                 
                 # Plot the fractal curve
-                self.analyzer.visualizer.plot_fractal_curve(
+                self.fractal_analyzer.visualizer.plot_fractal_curve(
                     segments, bounding_box, plot_boxes, box_sizes, box_counts, 
                     custom_filename=curve_file, level=level)
                 
                 # Plot the dimension analysis (log-log plot)
                 # This would need to be implemented in the visualizer
-                if hasattr(self.analyzer.visualizer, 'plot_loglog'):
-                    self.analyzer.visualizer.plot_loglog(
+                if hasattr(self.fractal_analyzer.visualizer, 'plot_loglog'):
+                    self.fractal_analyzer.visualizer.plot_loglog(
                         box_sizes, box_counts, fractal_dimension, error, 
                         custom_filename=dimension_file)
         
         # Plot the dimension vs. level results if not disabled
-        if not no_plots and hasattr(self.analyzer.visualizer, 'plot_dimension_vs_level'):
-            self.analyzer.visualizer.plot_dimension_vs_level(
+        if not no_plots and hasattr(self.fractal_analyzer.visualizer, 'plot_dimension_vs_level'):
+            self.fractal_analyzer.visualizer.plot_dimension_vs_level(
                 levels, dimensions, errors, r_squared, theoretical_dimension, type_used)
         
         return levels, dimensions, errors, r_squared

@@ -1,3 +1,43 @@
+Metadata-Version: 2.4
+Name: fractal_analyzer
+Version: 0.25.0
+Summary: A comprehensive fractal and multifractal analysis toolkit
+Home-page: https://github.com/yourusername/fractal_analyzer
+Author: Rod Douglass
+Author-email: rwdlanm@gmail.com
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Topic :: Scientific/Engineering :: Mathematics
+Classifier: Topic :: Scientific/Engineering :: Physics
+Classifier: Topic :: Scientific/Engineering :: Visualization
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: numpy>=1.18.0
+Requires-Dist: matplotlib>=3.1.0
+Requires-Dist: scipy>=1.4.0
+Requires-Dist: pandas>=1.0.0
+Requires-Dist: scikit-image>=0.16.0
+Provides-Extra: rt
+Requires-Dist: scikit-image>=0.16.0; extra == "rt"
+Provides-Extra: dev
+Requires-Dist: pytest; extra == "dev"
+Requires-Dist: pytest-cov; extra == "dev"
+Requires-Dist: black; extra == "dev"
+Requires-Dist: flake8; extra == "dev"
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: license-file
+Dynamic: provides-extra
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
 # Fractal Analyzer
 
 A Python package for analyzing fractal dimensions using the box-counting method. This tool provides a comprehensive set of utilities for generating fractal curves, calculating their dimensions, and visualizing the results.

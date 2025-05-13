@@ -1,0 +1,3 @@
+[console_scripts]
+fractal-analyzer = fractal_analyzer.cli:main
+fractal-rt = fractal_analyzer.applications.rt.rt_cli:main
